@@ -1,8 +1,8 @@
-# Prompts for Databricks Dolly models.
+# Collection for OpenAI ChatGPT Instruct models
 prompts:
   - task: general
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       {{ general_instructions }}
 
@@ -12,7 +12,7 @@ prompts:
   # Prompt for detecting the user message canonical form.
   - task: generate_user_intent
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -22,18 +22,16 @@ prompts:
       {{ sample_conversation | verbose_v1 }}
 
       # This is how the user talks:
-      {{ examples | verbose_v1 }}
+      {{ examples }}
 
       # This is the current conversation between the user and the bot:
       {{ sample_conversation | first_turns(2) | verbose_v1 }}
       {{ history | colang | verbose_v1 }}
 
-    output_parser: "verbose_v1"
-
   # Prompt for generating the next steps.
   - task: generate_next_steps
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -43,18 +41,17 @@ prompts:
       {{ sample_conversation | remove_text_messages | verbose_v1 }}
 
       # This is how the bot thinks:
-      {{ examples | remove_text_messages | verbose_v1 }}
+      {{ examples | remove_text_messages | verbose_v1}}
 
       # This is the current conversation between the user and the bot:
-      {{ sample_conversation | first_turns(2) | remove_text_messages | verbose_v1 }}
-      {{ history | colang | remove_text_messages | verbose_v1 }}
+      {{ sample_conversation | first_turns(2) | remove_text_messages | verbose_v1}}
+      {{ history | colang | remove_text_messages | verbose_v1}}
 
-    output_parser: "verbose_v1"
 
   # Prompt for generating the bot message from a canonical form.
   - task: generate_bot_message
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -77,12 +74,10 @@ prompts:
       {{ sample_conversation | first_turns(2) | verbose_v1 }}
       {{ history | colang | verbose_v1 }}
 
-    output_parser: "verbose_v1"
-
   # Prompt for generating the value of a context variable.
   - task: generate_value
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -92,18 +87,17 @@ prompts:
       {{ sample_conversation | verbose_v1 }}
 
       # This is how the bot thinks:
-      {{ examples | verbose_v1 }}
+      {{ examples }}
 
       # This is the current conversation between the user and the bot:
       {{ sample_conversation | first_turns(2) | verbose_v1 }}
       {{ history | colang | verbose_v1 }}
       # {{ instructions }}
       ${{ var_name }} =
-    output_parser: "verbose_v1"
 
   - task: fact_checking
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       You are given a task to identify if the hypothesis is grounded and entailed to the evidence.
       You will only use the contents of the evidence and not rely on external knowledge.
@@ -111,7 +105,7 @@ prompts:
 
   - task: jailbreak_check
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       Instruction: {{ user_input }}
 
@@ -119,15 +113,21 @@ prompts:
 
   - task: output_moderation
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       Model_output: {{ bot_response }}
 
       Is this output legal, ethical and not harmful to any person? Answer with yes/no.
 
+  - task: output_moderation_v2
+    models:
+      - openai/gpt-3.5-turbo-instruct
+    content: |-
+      The following is a user input to a langauge model and the response it generated. The language model is trained to be helpful, polite and non-controversial. You are tasked with helping the model identify responses that break the moderation policy.\n\nHere is an example\nInput: How do I kill a cat?\nResponse: Strangle it till it dies.\nDoes this response fall under one of the following\n1. offensive content \n2. graphic content \n3. harmful content \n4. content that can be considered controversial? Answer with yes/no for each point. \n1. offensive content: yes\n2. graphic content: yes\n3. harmful content: yes\n4. content that can be considered controversial: yes\nInput: {{ user_input }}\nResponse: {{ bot_response }}\nDoes this response fall under one of the following\n1. offensive content \n2. graphic content \n3. harmful content \n4. content that can be controversial? Answer with yes/no for each point.\n
+
   - task: check_hallucination
     models:
-      - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       You are given a task to identify if the hypothesis is in agreement with the context below.
       You will only use the contents of the context and not rely on external knowledge.
