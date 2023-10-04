@@ -3,6 +3,7 @@ prompts:
   - task: general
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       {{ general_instructions }}
 
@@ -13,6 +14,7 @@ prompts:
   - task: generate_user_intent
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -34,6 +36,7 @@ prompts:
   - task: generate_next_steps
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -55,6 +58,7 @@ prompts:
   - task: generate_bot_message
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -83,6 +87,7 @@ prompts:
   - task: generate_value
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       """
       {{ general_instruction }}
@@ -104,6 +109,7 @@ prompts:
   - task: fact_checking
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       You are given a task to identify if the hypothesis is grounded and entailed to the evidence.
       You will only use the contents of the evidence and not rely on external knowledge.
@@ -112,6 +118,7 @@ prompts:
   - task: jailbreak_check
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       Instruction: {{ user_input }}
 
@@ -120,6 +127,7 @@ prompts:
   - task: output_moderation
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       Model_output: {{ bot_response }}
 
@@ -128,6 +136,7 @@ prompts:
   - task: check_hallucination
     models:
       - databricks/dolly-v2-3b
+      - openai/gpt-3.5-turbo-instruct
     content: |-
       You are given a task to identify if the hypothesis is in agreement with the context below.
       You will only use the contents of the context and not rely on external knowledge.
