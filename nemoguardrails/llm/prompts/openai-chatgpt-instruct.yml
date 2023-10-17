@@ -18,6 +18,8 @@ prompts:
       {{ general_instruction }}
       """
 
+      Your task is to generate the user intent for the last message in a conversation, given a list of examples.
+
       # This is how a conversation between a user and the bot can go:
       {{ sample_conversation }}
 
@@ -37,15 +39,17 @@ prompts:
       {{ general_instruction }}
       """
 
+      Your task is to generate the next step in the conversation.
+
       # This is how a conversation between a user and the bot can go:
-      {{ sample_conversation | remove_text_messages }}
+      {{ sample_conversation }}
 
       # This is how the bot thinks:
-      {{ examples | remove_text_messages}}
+      {{ examples }}
 
       # This is the current conversation between the user and the bot:
-      {{ sample_conversation | first_turns(2) | remove_text_messages}}
-      {{ history | colang | remove_text_messages}}
+      {{ sample_conversation | first_turns(2) }}
+      {{ history | colang }}
 
 
   # Prompt for generating the bot message from a canonical form.
@@ -56,6 +60,8 @@ prompts:
       """
       {{ general_instruction }}
       """
+
+      Your task is to generate reponse to the user.
 
       # This is how a conversation between a user and the bot can go:
       {{ sample_conversation }}
