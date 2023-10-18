@@ -1,5 +1,14 @@
 # Collection for OpenAI ChatGPT Instruct models
 prompts:
+  - task: general
+    models:
+      - openai/gpt-3.5-turbo-instruct
+    content: |-
+      {{ general_instructions }}
+
+      {{ history | user_assistant_sequence }}
+      Assistant:
+
   # Prompt for detecting the user message canonical form.
   - task: generate_user_intent
     models:
@@ -33,14 +42,14 @@ prompts:
       Your task is to generate the next step in the conversation.
 
       # This is how a conversation between a user and the bot can go:
-      {{ sample_conversation }}
+      {{ sample_conversation | remove_text_messages }}
 
       # This is how the bot thinks:
-      {{ examples }}
+      {{ examples | remove_text_messages }}
 
       # This is the current conversation between the user and the bot:
-      {{ sample_conversation | first_turns(2) }}
-      {{ history | colang }}
+      {{ sample_conversation | first_turns(2) | remove_text_messages }}
+      {{ history | colang | remove_text_messages }}
 
 
   # Prompt for generating the bot message from a canonical form.
@@ -52,7 +61,7 @@ prompts:
       {{ general_instruction }}
       """
 
-      Your task is to generate reponse to the user.
+      Your task is to generate the bot message for the last user message.
 
       # This is how a conversation between a user and the bot can go:
       {{ sample_conversation }}
