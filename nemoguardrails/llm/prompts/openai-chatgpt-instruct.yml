@@ -1,13 +1,5 @@
 # Collection for OpenAI ChatGPT Instruct models
 prompts:
-  - task: general
-    models:
-      - openai/gpt-3.5-turbo-instruct
-    content: |-
-      {{ general_instructions }}
-
-      {{ history | user_assistant_sequence }}
-      Assistant:
 
   # Prompt for detecting the user message canonical form.
   - task: generate_user_intent
