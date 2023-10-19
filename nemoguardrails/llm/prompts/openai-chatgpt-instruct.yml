@@ -53,7 +53,7 @@ prompts:
       {{ general_instruction }}
       """
 
-      Your task is to generate the bot message for the last user message.
+      Your task is to generate the bot message.
 
       # This is how a conversation between a user and the bot can go:
       {{ sample_conversation }}

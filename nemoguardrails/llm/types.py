@@ -30,3 +30,4 @@ class Task(Enum):
     OUTPUT_MODERATION = "output_moderation"
     OUTPUT_MODERATION_V2 = "output_moderation_v2"
     CHECK_HALLUCINATION = "check_hallucination"
+    SUMMARIZE_PREFERENCES = "summarize_preferences"
